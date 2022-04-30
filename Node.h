@@ -1,11 +1,12 @@
 #ifndef __NODE__
 #define __NODE__
 #include <cmath>
+#include <vector>
+using std::vector;
 struct Node {
 	vector<int> board;
 	vector<Node*> neighbors;
 	int h;
-
 
 	Node(vector<int>& v,int heurOption) {
 		for(int num : v) {
@@ -32,13 +33,12 @@ struct Node {
 				if(board[i]==0) continue;
 				currRow	= i/3;
 				currCol = i%3;
-
 				goalRow	= (board[i]-1)/3;
 				goalCol = (board[i]-1)%3;
-
-				h+=abs(currRow-goalRow)+abs(currCol-goalCurr);
+				h+=abs(currRow-goalRow)+abs(currCol-goalCol);
 			}
 		}
+		return -1; //wrong options
 	}
 };
 #endif
