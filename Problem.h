@@ -14,8 +14,6 @@ private:
 public:
 	Problem(vector<int> v, int heurOption);
 	void findNeighbors(Node* curr);
-	void calcNext(Node* curr);
+	vector<vector<int>> calcNext(Node* curr);
 };
-
-
 #endif

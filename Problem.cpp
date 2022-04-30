@@ -13,10 +13,10 @@ Problem::Problem(vector<int> startVector, int heurOption) {
 }
 
 void Problem::findNeighbors(Node* curr) {
-
+calcNext(curr);
 }
 
-void Problem::calcNext(Node* curr) {
+vector<vector<int>> Problem::calcNext(Node* curr) {
 	int zero = -1;
 	for(int i = 0; i < 9; i++) {
 		if(curr->board[i]==0) {
@@ -26,8 +26,8 @@ void Problem::calcNext(Node* curr) {
 	}
 	int row = zero/3;
 	int col = zero%3;
-	int neighborIndex,temp,x,y;
-	vector<vector<int> > neighbors;
+	int neighborIndex,x,y;
+	vector<vector<int> > next;
 	for(pair<int,int> &mv : move) {
 		x=row+mv.first;
 		y=col+mv.second;
@@ -36,11 +36,15 @@ void Problem::calcNext(Node* curr) {
 		}
 		neighborIndex = x*3 + y;
 		vector<int> neighbor;
+
+		//deep copy of vector
 		for(int i = 0; i < 9; i++) {
 			neighbor.push_back(curr->board[i]);
 		}
+
+		//operation of swapping blank with number
 		neighbor[neighborIndex] = curr->board[zero];	
 		neighbor[zero] = curr->board[neighborIndex];
-		neighbors.push_back(neighbor);
+		next.push_back(neighbor);
 	}
 }
