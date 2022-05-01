@@ -33,6 +33,7 @@ int main() {
 		} else {
 			cout<<"Search failed :("<<endl;
 		}
+		cout<<"Expanded Count: "<<p.getExpandCount();
 		//print algorithm outputs here.
 	} else {
 		cout<<"testing default puzzle"<<endl;
@@ -58,6 +59,8 @@ int main() {
 		} else {
 			cout<<"Search failed :("<<endl;
 		}
+		cout<<"Expanded Count: "<<p.getExpandCount();
+
 	}
 
 	return 0;

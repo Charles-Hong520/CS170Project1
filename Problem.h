@@ -18,9 +18,11 @@ private:
 	Node* curr;
 	vector<pair<int,int>>  move;
 	int heurOption;
+	int expandCalled;
 public:
 	Problem(vector<int> v, int heurOption);
 	bool findGoal();
+	int getExpandCount() {return expandCalled;}
 	void printState(int cost);
 	Node* getCurr() {return curr;}
 private:
