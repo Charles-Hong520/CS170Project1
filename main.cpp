@@ -33,8 +33,8 @@ int main() {
 		} else {
 			cout<<"Search failed :("<<endl;
 		}
-		cout<<"Expanded Count: "<<p.getExpandCount();
-		//print algorithm outputs here.
+		cout<<"Max pq size: "<<p.maxPQSize<<endl;
+		cout<<"Visited count: "<<p.visited.size()<<endl;		//print algorithm outputs here.
 	} else {
 		cout<<"testing default puzzle"<<endl;
 		cout<<"1 2 3\n4 0 5 \n7 8 6"<<endl;
@@ -59,7 +59,8 @@ int main() {
 		} else {
 			cout<<"Search failed :("<<endl;
 		}
-		cout<<"Expanded Count: "<<p.getExpandCount();
+		cout<<"Max pq size: "<<p.maxPQSize<<endl;
+		cout<<"Visited count: "<<p.visited.size()<<endl;
 
 	}
 

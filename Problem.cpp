@@ -3,7 +3,7 @@
 Problem::Problem(vector<int> startVector, int heurOption) {
 	this->init = new Node(startVector,heurOption);
 	this->heurOption=heurOption;
-	expandCalled=0;
+	this->maxPQSize=0;
 	vector<int> goalVector(9,0);
 	for(int i = 0; i < 8; i++) goalVector[i]=i+1;
 	this->goal = new Node(goalVector,heurOption);
@@ -19,6 +19,7 @@ bool Problem::findGoal() {
 	pq.insert({0,{0,this->init}});
 	int i = 0,g;
 	while(!pq.empty()) {
+		maxPQSize = std::max((int)pq.size(),maxPQSize);
 		auto front = pq.begin();
 		this->curr = front->second.second;
 		g = front->second.first;
@@ -37,7 +38,6 @@ bool Problem::findGoal() {
 
 
 void Problem::expand(int cost) {
-	expandCalled++;
 	int zero = -1;
 	for(int i = 0; i < 9; i++) {
 		if(curr->board[i]==0) {
