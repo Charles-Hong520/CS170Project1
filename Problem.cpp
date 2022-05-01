@@ -2,7 +2,7 @@
 
 Problem::Problem(vector<int> startVector, int heurOption) {
 	this->init = new Node(startVector,heurOption);
-
+	this->heurOption=heurOption;
 	vector<int> goalVector(9,0);
 	for(int i = 0; i < 8; i++) goalVector[i]=i+1;
 	this->goal = new Node(goalVector,heurOption);
@@ -10,15 +10,28 @@ Problem::Problem(vector<int> startVector, int heurOption) {
 	move.push_back({0,-1});
 	move.push_back({1,0});
 	move.push_back({-1,0});
+	pq.clear();
 }
 
-void Problem::findNeighbors(Node* curr) {
-	//expand function
-	vector<vector<int>> neighbors = calcNext(curr);
 
+bool Problem::findGoal() {
+	pq.insert({0,this->goal});
+	while(!pq.empty()) {
+		auto front = pq.begin();
+		this->curr=front->second;
+		int cost = front->first;
+		pq.erase(front);
+		if(curr->board==goal->board) { //in goal state
+			return true;
+		}
+		visited.insert(curr->board);
+		expand(cost);
+	}
+	return false;
 }
 
-vector<vector<int>> Problem::calcNext(Node* curr) {
+
+void Problem::expand(int cost) {
 	int zero = -1;
 	for(int i = 0; i < 9; i++) {
 		if(curr->board[i]==0) {
@@ -29,7 +42,6 @@ vector<vector<int>> Problem::calcNext(Node* curr) {
 	int row = zero/3;
 	int col = zero%3;
 	int neighborIndex,x,y;
-	vector<vector<int> > next;
 	for(pair<int,int> &mv : move) {
 		x=row+mv.first;
 		y=col+mv.second;
@@ -47,7 +59,19 @@ vector<vector<int>> Problem::calcNext(Node* curr) {
 		//operation of swapping blank with number
 		neighbor[neighborIndex] = curr->board[zero];	
 		neighbor[zero] = curr->board[neighborIndex];
-		next.push_back(neighbor);
+		if(visited.count(neighbor)) continue;
+		else {
+			Node* neigh = new Node(neighbor,heurOption);
+			pq.insert({cost+neigh->h, neigh});
+		}
+
 	}
-	return next;
+}
+
+bool isEqual(const vector<int>& a, const vector<int>& b) {
+	if(a.size()!=b.size()) return false;
+	for(int i = 0; i < a.size(); i++) {
+		if(a[i]!=b[i]) return false;
+	}
+	return true;
 }
