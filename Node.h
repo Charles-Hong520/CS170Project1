@@ -19,13 +19,14 @@ struct Node {
 		//0 is uniform
 		//1 is misplaced tiles
 		//2 is manhattan/euclidean dist
-
+		option--;
 		int h = 0;
 		if(option==0) return 0;
 		else if(option==1) {
-			for(int i = 0; i < 9; i++) {
+			for(int i = 0; i < 8; i++) {
 				if(board[i]!=i+1) h++;
 			}
+			return h;
 		} else if(option==2) {
 			int currRow,currCol; //traversing index i
 			int goalRow,goalCol; //our board vector's val
@@ -37,6 +38,7 @@ struct Node {
 				goalCol = (board[i]-1)%3;
 				h+=abs(currRow-goalRow)+abs(currCol-goalCol);
 			}
+			return h;
 		}
 		return -1; //wrong options
 	}

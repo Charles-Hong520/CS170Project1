@@ -15,17 +15,21 @@ Problem::Problem(vector<int> startVector, int heurOption) {
 
 
 bool Problem::findGoal() {
-	pq.insert({0,this->goal});
+	pq.insert({0,{0,this->init}});
+	int i = 0,g;
 	while(!pq.empty()) {
 		auto front = pq.begin();
-		this->curr=front->second;
-		int cost = front->first;
+		this->curr = front->second.second;
+		g = front->second.first;
+		int combine = front->first;
 		pq.erase(front);
 		if(curr->board==goal->board) { //in goal state
 			return true;
 		}
 		visited.insert(curr->board);
-		expand(cost);
+		printState(g);
+		expand(g);
+		
 	}
 	return false;
 }
@@ -62,16 +66,17 @@ void Problem::expand(int cost) {
 		if(visited.count(neighbor)) continue;
 		else {
 			Node* neigh = new Node(neighbor,heurOption);
-			pq.insert({cost+neigh->h, neigh});
+			pq.insert({cost+1+neigh->h,{cost+1, neigh}});
 		}
-
 	}
 }
 
-bool isEqual(const vector<int>& a, const vector<int>& b) {
-	if(a.size()!=b.size()) return false;
-	for(int i = 0; i < a.size(); i++) {
-		if(a[i]!=b[i]) return false;
+
+
+void Problem::printState(int cost) {
+	cout<<"g(n): "<<cost<<"  h(n): "<<curr->h<<endl;
+	for(int i = 0; i < 9; i++) {
+		cout<<curr->board[i]<<' ';
+		if(i%3==2) cout<<endl;
 	}
-	return true;
 }
