@@ -25,6 +25,7 @@ bool Problem::findGoal() {
 		g = front->second.first;
 		int combine = front->first;
 		pq.erase(front);
+		if(visited.count(curr->board)) continue;
 		if(curr->board==goal->board) { //in goal state
 			return true;
 		}
@@ -37,7 +38,7 @@ bool Problem::findGoal() {
 }
 
 
-void Problem::expand(int cost) {
+void Problem::expand(double cost) {
 	int zero = -1;
 	for(int i = 0; i < 9; i++) {
 		if(curr->board[i]==0) {
@@ -48,6 +49,8 @@ void Problem::expand(int cost) {
 	int row = zero/3;
 	int col = zero%3;
 	int neighborIndex,x,y;
+
+	//tries to move in 4 possible directions
 	for(pair<int,int> &mv : move) {
 		x=row+mv.first;
 		y=col+mv.second;
@@ -75,7 +78,7 @@ void Problem::expand(int cost) {
 
 
 
-void Problem::printState(int cost) {
+void Problem::printState(double cost) {
 	cout<<"g(n): "<<cost<<"  h(n): "<<curr->h<<endl;
 	for(int i = 0; i < 9; i++) {
 		cout<<curr->board[i]<<' ';
