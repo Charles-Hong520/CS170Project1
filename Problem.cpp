@@ -13,7 +13,9 @@ Problem::Problem(vector<int> startVector, int heurOption) {
 }
 
 void Problem::findNeighbors(Node* curr) {
-calcNext(curr);
+	//expand function
+	vector<vector<int>> neighbors = calcNext(curr);
+
 }
 
 vector<vector<int>> Problem::calcNext(Node* curr) {
@@ -47,4 +49,5 @@ vector<vector<int>> Problem::calcNext(Node* curr) {
 		neighbor[zero] = curr->board[neighborIndex];
 		next.push_back(neighbor);
 	}
+	return next;
 }

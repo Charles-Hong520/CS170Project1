@@ -13,6 +13,8 @@ private:
 	vector<pair<int,int> > move;
 public:
 	Problem(vector<int> v, int heurOption);
+	bool findGoal();
+private:
 	void findNeighbors(Node* curr);
 	vector<vector<int>> calcNext(Node* curr);
 };
