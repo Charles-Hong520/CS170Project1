@@ -61,7 +61,6 @@ int main() {
 		}
 		cout<<"Max pq size: "<<p.maxPQSize<<endl;
 		cout<<"Visited count: "<<p.visited.size()<<endl;
-
 	}
 
 	return 0;
