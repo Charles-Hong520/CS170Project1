@@ -43,8 +43,8 @@ int main() {
 		cout<<"2. A* with the Misplaced Tile heuristic\n";
 		cout<<"3. A* with the Euclidean distance heuristic\n";
 		int heuristicChoice; cin>>heuristicChoice;
-		// int a[9] = {1,2,3,4,0,5,7,8,6};
-		int a[9] = {1,2,3,4,8,0,7,6,5};
+		
+		int a[9] = {1,0,3,4,2,6,7,5,8};
 		vector<int> v(9); 
 		for(int i = 0; i < 9; i++) v[i]=a[i];
 		Problem p(v,heuristicChoice);
